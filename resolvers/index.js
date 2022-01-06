@@ -33,7 +33,7 @@ const formPostResolver = (req, res) => {
     })
     .filter((val) => {
       if (val.question && config.quetionTypes.includes(val.type)) {
-        if (config.quetionTypesWithOptions(val.type)) {
+        if (config.quetionTypesWithOptions.includes(val.type)) {
           return val.options.length;
         }
         return true;
