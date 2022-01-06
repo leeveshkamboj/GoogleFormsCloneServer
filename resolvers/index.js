@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
 const Forms = require("../models/forms");
+const config = require("../config");
 
 const homeResolver = (req, res) => {
   // return res.status(200).json({ success: true, msg: "Yo!", user: req.user });
-  return res.status(200).json({ success: true, msg: "Yo!"});
+  return res.status(200).json({ success: true, msg: "Yo!" });
 };
 
 const formPostResolver = (req, res) => {
@@ -31,8 +32,8 @@ const formPostResolver = (req, res) => {
       return x;
     })
     .filter((val) => {
-      if (val.question && [0, 1, 2].includes(val.type)) {
-        if (val.type == 2) {
+      if (val.question && config.quetionTypes.includes(val.type)) {
+        if (config.quetionTypesWithOptions(val.type)) {
           return val.options.length;
         }
         return true;
