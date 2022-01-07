@@ -1,18 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+var cors = require('cors')
 
 const config = require("./config");
 
 const app = express();
 
+app.use(cors())
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
 
 app.use("/user", require("./routes/user"));
 app.use("/", require("./routes"));
