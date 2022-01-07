@@ -39,7 +39,13 @@ const formPostResolver = (req, res) => {
         return true;
       }
     });
-  new_form = new Forms({ _id: new mongoose.Types.ObjectId(), name, questions });
+  new_form = new Forms({
+    _id: new mongoose.Types.ObjectId(),
+    name,
+    questions,
+    created_at: new Date().toISOString(),
+    created_by: req.user.username,
+  });
   new_form
     .save()
     .then((result) => {

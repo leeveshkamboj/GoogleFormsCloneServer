@@ -13,6 +13,8 @@ const formSchema = new Schema({
       options: [String],
     },
   ],
+  created_by: String,
+  created_at: String,
 });
 
 const forms = mongoose.model("forms", formSchema);
