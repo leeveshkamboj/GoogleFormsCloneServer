@@ -12,7 +12,8 @@ const generateToken = (user) => {
     },
     config.tokenKey,
     {
-      expiresIn: "2h",
+      // expiresIn: "2h",
+      expiresIn: 60 * 2,
     }
   );
 };
