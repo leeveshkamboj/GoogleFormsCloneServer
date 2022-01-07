@@ -18,7 +18,7 @@ const formPostResolver = (req, res) => {
   if (!questions || !questions.length) {
     return res
       .status(400)
-      .json({ success: false, error: "Should have at least on quetions" });
+      .json({ success: false, error: "Should have at least one quetions" });
   }
   questions = questions
     .map((val) => {
