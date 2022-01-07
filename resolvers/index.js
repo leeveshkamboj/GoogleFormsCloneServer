@@ -15,12 +15,12 @@ const formPostResolver = (req, res) => {
       .status(400)
       .json({ success: false, error: "Form name not provided" });
   }
-  if (!quetions || !quetions.length) {
+  if (!questions || !questions.length) {
     return res
       .status(400)
       .json({ success: false, error: "Should have at least on quetions" });
   }
-  questions = req.body.questions
+  questions = questions
     .map((val) => {
       const x = {
         _id: new mongoose.Types.ObjectId(),
