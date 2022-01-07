@@ -4,8 +4,8 @@ const Forms = require("../models/forms");
 const config = require("../config");
 
 const homeResolver = (req, res) => {
-  // return res.status(200).json({ success: true, msg: "Yo!", user: req.user });
-  return res.status(200).json({ success: true, msg: "Yo!" });
+  return res.status(200).json({ success: true, msg: "Yo!", user: req.user });
+  // return res.status(200).json({ success: true, msg: "Yo!" });
 };
 
 const formPostResolver = (req, res) => {
