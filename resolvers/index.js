@@ -18,7 +18,7 @@ const formPostResolver = (req, res) => {
   if (!questions || !questions.length) {
     return res
       .status(400)
-      .json({ success: false, error: "Should have at least one quetions" });
+      .json({ success: false, error: "Should have at least one quetion" });
   }
   questions = questions
     .map((val) => {
@@ -49,6 +49,11 @@ const formPostResolver = (req, res) => {
         return true;
       }
     });
+  if (!questions.length) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Should have at least one valid quetion" });
+  }
   new_form = new Forms({
     _id: new mongoose.Types.ObjectId(),
     name,
