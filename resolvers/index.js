@@ -50,16 +50,27 @@ const formPostResolver = (req, res) => {
       }
     });
   if (!questions.length) {
-    return res
-      .status(400)
-      .json({ success: false, error: "Should have at least one valid quetion" });
+    return res.status(400).json({
+      success: false,
+      error: "Should have at least one valid quetion",
+    });
   }
+  user = await users.findOne({
+    username: req.user.username,
+  });
+
+  if (!user) {
+    return res.status(401).json({
+      success: false,
+    });
+  }
+
   new_form = new Forms({
     _id: new mongoose.Types.ObjectId(),
     name,
     questions,
     created_at: new Date().toISOString(),
-    created_by: req.user.username,
+    created_by: user._id,
   });
   new_form
     .save()

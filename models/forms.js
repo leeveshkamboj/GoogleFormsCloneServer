@@ -13,7 +13,7 @@ const formSchema = new Schema({
       options: [String],
     },
   ],
-  created_by: String,
+  created_by: { type: Schema.Types.ObjectId, ref: 'users' },
   created_at: String,
 });
 
