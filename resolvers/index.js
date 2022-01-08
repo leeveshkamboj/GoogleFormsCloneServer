@@ -55,10 +55,10 @@ const formPostResolver = async (req, res) => {
       error: "Should have at least one valid quetion",
     });
   }
-  user = await users.findOne({
+
+  const user = await users.findOne({
     username: req.user.username,
   });
-
   if (!user) {
     return res.status(401).json({
       success: false,
