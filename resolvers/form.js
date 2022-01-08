@@ -84,16 +84,24 @@ const formPostResolver = async (req, res) => {
     });
 };
 
-const formGetResolver = (req, res) => {
+const formGetResolver = async (req, res) => {
   if (!req.query.id)
     return res.status(401).json({ success: false, error: "ID not provided" });
-  Forms.findById(req.query.id)
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch(() => {
-      return res.status(404).json({ success: false, error: "Not Found" });
-    });
+
+  const result = await Forms.findById(req.query.id);
+  if (result) {
+    const user = await Users.findById(result.created_by);
+    return res
+      .status(200)
+      .json({
+        name: result.name,
+        questions: result.question,
+        created_at: result.created_at,
+        created_by: user.username,
+      });
+  } else {
+    return res.status(404).json({ success: false, error: "Not Found" });
+  }
 };
 
 module.exports = { formPostResolver, formGetResolver };
