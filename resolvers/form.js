@@ -85,10 +85,11 @@ const formPostResolver = async (req, res) => {
 };
 
 const formGetResolver = async (req, res) => {
+  var result = null
   if (!req.params.formID)
     return res.status(401).json({ success: false, error: "ID not provided" });
   try {
-    const result = await Forms.findById(req.params.formID);
+    result = await Forms.findById(req.params.formID);
   } catch {
     return res.status(404).json({ success: false, error: "Not Found" });
   }
