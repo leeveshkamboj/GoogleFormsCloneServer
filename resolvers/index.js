@@ -8,7 +8,7 @@ const homeResolver = (req, res) => {
   return res.status(200).json({ success: true, msg: "Yo!" });
 };
 
-const formPostResolver = (req, res) => {
+const formPostResolver = async (req, res) => {
   var { name, questions } = req.body;
   if (!name) {
     return res
