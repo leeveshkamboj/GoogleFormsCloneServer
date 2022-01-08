@@ -124,7 +124,10 @@ const responsePostResolver = async (req, res) => {
   }
   if (result) {
     const responses = req.body.responses.filter((val, i) => {
-      if (config.quetionTypesWithOptions.includes(result.questions[i].type)) {
+      if (
+        val !== null &&
+        config.quetionTypesWithOptions.includes(result.questions[i].type)
+      ) {
         return !isNaN(val) && val < result.questions[i].options.length;
       }
       return true;
@@ -136,7 +139,10 @@ const responsePostResolver = async (req, res) => {
     }
     result.responses.push(
       responses.map((val, i) => {
-        if (config.quetionTypesWithOptions.includes(result.questions[i].type))
+        if (
+          val !== null &&
+          config.quetionTypesWithOptions.includes(result.questions[i].type)
+        )
           return parseInt(val);
         else return val;
       })
@@ -144,7 +150,7 @@ const responsePostResolver = async (req, res) => {
     result
       .save()
       .then(() => {
-        return res.status(401).json({ success: true });
+        return res.status(200).json({ success: true });
       })
       .catch(() => {
         return res
