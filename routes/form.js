@@ -1,10 +1,7 @@
 const express = require("express");
 
-const {
-  formPostResolver,
-  formGetResolver,
-  responsePostResolver,
-} = require("../resolvers/form");
+const { formPostResolver, formGetResolver } = require("../resolvers/form");
+const { responsePostResolver } = require("../resolvers/response");
 const { authentication_middleware } = require("../middlewares");
 
 const router = express.Router();
