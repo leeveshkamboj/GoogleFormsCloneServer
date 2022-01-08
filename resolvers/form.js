@@ -66,7 +66,7 @@ const formPostResolver = async (req, res) => {
     name,
     questions,
     created_at: new Date().toISOString(),
-    created_by: { _id: user._id, username: user.username },
+    created_by: user._id,
   });
   new_form
     .save()
