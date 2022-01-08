@@ -24,7 +24,7 @@ const formPostResolver = async (req, res) => {
         type: val.type,
       };
       if (val.type === 2) {
-        if (val.options) {
+        if (val.options && val.options.length > 1) {
           return {
             ...x,
             options: val.options,
@@ -91,14 +91,12 @@ const formGetResolver = async (req, res) => {
   const result = await Forms.findById(req.query.id);
   if (result) {
     const user = await Users.findById(result.created_by);
-    return res
-      .status(200)
-      .json({
-        name: result.name,
-        questions: result.questions,
-        created_at: result.created_at,
-        created_by: user.username,
-      });
+    return res.status(200).json({
+      name: result.name,
+      questions: result.questions,
+      created_at: result.created_at,
+      created_by: user.username,
+    });
   } else {
     return res.status(404).json({ success: false, error: "Not Found" });
   }
