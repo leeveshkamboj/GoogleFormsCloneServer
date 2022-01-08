@@ -5,7 +5,7 @@ const { authentication_middleware } = require("../middlewares");
 
 const router = express.Router();
 
-router.post("/form", authentication_middleware, formPostResolver);
-router.get("/form", formGetResolver);
+router.post("/", authentication_middleware, formPostResolver);
+router.get("/", formGetResolver);
 
 module.exports = router;
