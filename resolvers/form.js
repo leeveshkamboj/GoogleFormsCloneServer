@@ -95,7 +95,7 @@ const formGetResolver = async (req, res) => {
       .status(200)
       .json({
         name: result.name,
-        questions: result.question,
+        questions: result.questions,
         created_at: result.created_at,
         created_by: user.username,
       });
