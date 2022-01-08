@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const Forms = require("../models/forms");
+const Users = require("../models/users");
 const config = require("../config");
 
 const homeResolver = (req, res) => {
@@ -56,7 +57,7 @@ const formPostResolver = async (req, res) => {
     });
   }
 
-  const user = await users.findOne({
+  const user = await Users.findOne({
     username: req.user.username,
   });
   if (!user) {
