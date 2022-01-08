@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/user", require("./routes/user"));
+app.use("/form", require("./routes/form"));
 app.use("/", require("./routes"));
 
 if (config.dbUrl) {
