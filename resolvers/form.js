@@ -71,9 +71,12 @@ const formPostResolver = async (req, res) => {
   new_form
     .save()
     .then((result) => {
-      return res.status(200).json({
-        success: true,
-        id: result._id,
+      user.forms.push(new_form._id);
+      user.save().then(() => {
+        return res.status(200).json({
+          success: true,
+          id: result._id,
+        });
       });
     })
     .catch((err) => {
@@ -89,21 +92,38 @@ const formGetResolver = async (req, res) => {
   if (!req.params.formID)
     return res.status(401).json({ success: false, error: "ID not provided" });
   try {
-    result = await Forms.findById(req.params.formID);
+    result = await Forms.findById(req.params.formID).populate("created_by");
   } catch {
     return res.status(404).json({ success: false, error: "Form not found" });
   }
   if (result) {
-    const user = await Users.findById(result.created_by);
     return res.status(200).json({
       name: result.name,
       questions: result.questions,
       created_at: result.created_at,
-      created_by: user.username,
+      created_by: result.created_by.username,
     });
   } else {
     return res.status(404).json({ success: false, error: "Form not found" });
   }
 };
 
-module.exports = { formPostResolver, formGetResolver };
+const formsGetResolver = (req, res) => {
+  Users.findOne({
+    username: req.user.username,
+  })
+    .populate("forms")
+    .then((result) => {
+      return res.status(200).json({
+        success: true,
+        forms: result.forms,
+      });
+    })
+    .catch(() => {
+      return res.status(401).json({
+        success: false,
+      });
+    });
+};
+
+module.exports = { formPostResolver, formGetResolver, formsGetResolver };
