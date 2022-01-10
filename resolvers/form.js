@@ -71,7 +71,7 @@ const formPostResolver = async (req, res) => {
   new_form
     .save()
     .then((result) => {
-      user.forms.push(new_form._id);
+      user.forms.unshift(new_form._id);
       user.save().then(() => {
         return res.status(200).json({
           success: true,
