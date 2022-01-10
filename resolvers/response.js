@@ -67,7 +67,7 @@ const responseGetResolver = async (req, res) => {
       .status(401)
       .json({ success: false, error: "Form is not created by you." });
   }
-  return res.status(200).json({ success: true, responses: result.responses });
+  return res.status(200).json({ success: true, responses: result.responses, questions:result.questions });
 };
 
 module.exports = { responsePostResolver, responseGetResolver };
