@@ -23,7 +23,7 @@ const formPostResolver = async (req, res) => {
         question: val.question,
         type: val.type,
       };
-      if (val.type === 2) {
+      if (config.quetionTypes.includes(val.type)) {
         if (val.options && val.options.length > 1) {
           return {
             ...x,
