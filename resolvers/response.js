@@ -1,20 +1,13 @@
-const Forms = require("../models/forms");
 const config = require("../config");
 
 const responsePostResolver = async (req, res) => {
-  if (!req.params.formID)
-    return res.status(401).json({ success: false, error: "ID not provided" });
-  try {
-    result = await Forms.findById(req.params.formID);
-  } catch {
-    return res.status(404).json({ success: false, error: "Form not found" });
-  }
+  const result = req.form;
   if (
     !req.body.responses ||
     req.body.responses.length !== result.questions.length
   ) {
     return res
-      .status(401)
+      .status(400)
       .json({ success: false, error: "Responses not provided" });
   }
 
@@ -29,7 +22,7 @@ const responsePostResolver = async (req, res) => {
   });
   if (responses.length !== result.questions.length) {
     return res
-      .status(401)
+      .status(400)
       .json({ success: false, error: "Responses not valid" });
   }
   result.responses.push(
@@ -55,19 +48,12 @@ const responsePostResolver = async (req, res) => {
 };
 
 const responseGetResolver = async (req, res) => {
-  if (!req.params.formID)
-    return res.status(401).json({ success: false, error: "ID not provided" });
-  try {
-    result = await Forms.findById(req.params.formID).populate("created_by");
-  } catch {
-    return res.status(404).json({ success: false, error: "Form not found" });
-  }
-  if (result.created_by.username !== req.user.username) {
-    return res
-      .status(401)
-      .json({ success: false, error: "Form is not created by you." });
-  }
-  return res.status(200).json({ success: true, responses: result.responses, questions:result.questions });
+  const result = req.form;
+  return res.status(200).json({
+    success: true,
+    responses: result.responses,
+    questions: result.questions,
+  });
 };
 
 module.exports = { responsePostResolver, responseGetResolver };

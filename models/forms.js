@@ -16,6 +16,7 @@ const formSchema = new Schema({
   responses: { type: [Schema.Types.Mixed], default: [] },
   created_by: { type: Schema.Types.ObjectId, ref: "users" },
   created_at: String,
+  enabled: { type: Boolean, default: true },
 });
 
 const forms = mongoose.model("forms", formSchema);

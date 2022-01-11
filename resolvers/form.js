@@ -90,7 +90,7 @@ const formPostResolver = async (req, res) => {
 const formGetResolver = async (req, res) => {
   var result = null;
   if (!req.params.formID)
-    return res.status(401).json({ success: false, error: "ID not provided" });
+    return res.status(400).json({ success: false, error: "ID not provided" });
   try {
     result = await Forms.findById(req.params.formID).populate("created_by");
   } catch {
@@ -126,4 +126,27 @@ const formsGetResolver = (req, res) => {
     });
 };
 
-module.exports = { formPostResolver, formGetResolver, formsGetResolver };
+const formEnableResolver = (req, res) => {
+  var newVal = true;
+  if (req.body.action === "disable") {
+    newVal = false;
+  }
+  Forms.findByIdAndUpdate(req.form._id, { $set: { enabled: newVal } })
+    .then(() => {
+      return res.status(200).json({
+        success: true,
+      });
+    })
+    .catch(() => {
+      return res.status(500).json({
+        success: false,
+      });
+    });
+};
+
+module.exports = {
+  formPostResolver,
+  formGetResolver,
+  formsGetResolver,
+  formEnableResolver,
+};
