@@ -43,7 +43,7 @@ const check_form_enabled = async (req, res, next) => {
     return res.status(404).json({ success: false, error: "Form not found" });
   }
   if (!result.enabled) {
-    return res.status(401).json({ success: false, error: "Form disabled" });
+    return res.status(401).json({ success: false, error: "This form is no longer accepting responses." });
   }
   req.form = result;
   return next();
