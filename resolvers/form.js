@@ -108,6 +108,21 @@ const formGetResolver = async (req, res) => {
   }
 };
 
+const formDeleteResolver = async (req, res) => {
+  var result = req.form;
+  await Users.findByIdAndUpdate(result.created_by, {
+    $pull: { forms: result._id },
+  });
+  result
+    .remove()
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch(() => {
+      res.status(200).json({ success: false });
+    });
+};
+
 const formsGetResolver = (req, res) => {
   Users.findOne({
     username: req.user.username,
@@ -148,5 +163,6 @@ module.exports = {
   formPostResolver,
   formGetResolver,
   formsGetResolver,
+  formDeleteResolver,
   formEnableResolver,
 };

@@ -4,6 +4,7 @@ const {
   formPostResolver,
   formGetResolver,
   formsGetResolver,
+  formDeleteResolver,
   formEnableResolver,
 } = require("../resolvers/form");
 const {
@@ -21,6 +22,7 @@ const router = express.Router();
 router.post("/", authentication_middleware, formPostResolver);
 router.get("/", authentication_middleware, formsGetResolver);
 router.get("/:formID", check_form_enabled, formGetResolver);
+router.delete("/:formID", authentication_middleware, check_form_created_by_user, formDeleteResolver);
 router.get("/:formID/response", authentication_middleware, check_form_created_by_user, responseGetResolver);
 router.post("/:formID/response", check_form_enabled, responsePostResolver);
 router.post("/:formID/enable", authentication_middleware, check_form_created_by_user, formEnableResolver);
