@@ -1,6 +1,6 @@
 # GoogleFormsCloneServer
 
-Server for https://github.com/leeveshkamboj/GoogleFormsCloneClient made in node js.
+Server for https://github.com/leeveshkamboj/GoogleFormsCloneClient made in Node JS.
 
 # Deploy on local
 
